@@ -25,7 +25,18 @@ When the tests have completed running you should see **TESTS DONE** as the last 
 Run
 ---
 
-	bin/demos
+	bin/demo
 
 When the demos have completed running you should see **DEMOS DONE** as the last line. If this is not the case, please [file an issue](https://github.com/codi-sh/codi.sh/issues).
+
+
+
+Hack
+----
+
+	bin/activate
+
+Loads a command-line environment from which projects may be manipulated for the purpose of development.
+
+Once activated the prompt will change and more commands are available. Run `help` for more information.
 
