@@ -34,7 +34,7 @@ When the demos have completed running you should see **DEMOS DONE** as the last 
 Hack
 ----
 
-	bin/activate
+	source bin/activate
 
 Loads a command-line environment from which projects may be manipulated for the purpose of development.
 

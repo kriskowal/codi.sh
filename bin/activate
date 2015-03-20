@@ -17,27 +17,8 @@ function init {
 	SYSTEM_ROOT_PATH="$( dirname $__BO_DIR__ )"
 	SYSTEM_NAME="$( basename $SYSTEM_ROOT_PATH )"
 
-	# TODO: Relocate into plugin and load based on mapping.
 	function customizePrompt {
-		# TODO: Relocate to external 'bash.origin' compatible plugin.
-		# @see http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
-		# @see http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
-
-		function parse_git_branch {
-			git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1 /'
-		}
-		function get_sub_path {
-			WORKING_PATH=`pwd`
-			if [ "$WORKING_PATH" != "$SYSTEM_ROOT_PATH" ]; then
-				if [[ $WORKING_PATH == "$SYSTEM_ROOT_PATH"* ]]; then
-					echo -e "\033[33m./${WORKING_PATH#$SYSTEM_ROOT_PATH/}\033[0m "
-				else
-					echo -e "\033[1;31m${WORKING_PATH#$SYSTEM_ROOT_PATH/} is outside of $SYSTEM_ROOT_PATH\033[0m "
-				fi
-			fi
-		}
-
-		export PS1='\[\033[1;34m\]\[\033[47m\]$SYSTEM_NAME\[\033[0m\] \[\033[1;35m\]$(parse_git_branch)\[\033[0m\]$(get_sub_path)\[\033[1;33m\]$\[\033[0m\] '
+		BO_callPlugin "bash.origin.prompt" setPrompt "workspace" "$SYSTEM_ROOT_PATH"
 	}
 
 	# TODO: Relocate into plugin and load based on mapping.
