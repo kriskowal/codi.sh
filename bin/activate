@@ -21,16 +21,6 @@ function init {
 		BO_callPlugin "bash.origin.prompt" setPrompt "workspace" "$SYSTEM_ROOT_PATH"
 	}
 
-	# TODO: Relocate into plugin and load based on mapping.
-	function aliasHome {
-		alias home="cd $SYSTEM_ROOT_PATH"
-	}
-
-	# TODO: Relocate into plugin and load based on mapping.
-	function aliasHelp {
-		alias help='echo "$(printHelp)"'
-	}
-
 	# TODO: Read pre-generated help file or generate from metadata if not found.
 	function printHelp {
 		echo " "
@@ -42,17 +32,33 @@ function init {
 		echo "    demo - Runs all demos (bin/demo)"
 		echo "    test - Runs all tests (bin/test)"
 		echo " "
-		echo "  Located commands:"
+		echo "  Runtimes:"
 		echo " "
-		echo "    bin/test"
-		echo "    bin/demo"
+		echo "    node"
+		echo " "
+		echo "  Tools:"
+		echo " "
+		echo "    nvm"
+		echo "    npm"
+		echo "    smi"
+		echo " "
+		echo "  Variables:"
+		echo " "
+		echo "    PATH: $PATH"
 		echo " "
 	}
 
-	function aliasSystemBinaries {
-		alias demo="$SYSTEM_ROOT_PATH/bin/demo"
-		alias test="$SYSTEM_ROOT_PATH/bin/test"
+	function aliasWorkspaceCommands {
+		alias home="cd $SYSTEM_ROOT_PATH"
+		alias help='echo "$(printHelp)"'
 		alias reload="source $SYSTEM_ROOT_PATH/bin/activate"
+		BO_link_node "$__BO_DIR__"
+		BO_link_npm "$__BO_DIR__"
+		BO_link_smi "$__BO_DIR__"
+	}
+
+	function modifyCommandPath {
+		export PATH="$__BO_DIR__:$PATH"
 	}
 
 	function printWelcome {
@@ -64,9 +70,8 @@ function init {
 	}
 
 	customizePrompt
-	aliasHome
-	aliasHelp
-	aliasSystemBinaries
+	aliasWorkspaceCommands
+	modifyCommandPath
 
 	printWelcome
 }
