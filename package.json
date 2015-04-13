@@ -3,5 +3,24 @@
   "version": "0.1.0",
   "dependencies": {
     "bash.origin": "0.1.x"
-  }
+  },
+  "description": "An exercise. Purpose to become eventually clear.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codi-sh/codi.sh.git"
+  },
+  "keywords": [
+    "codish"
+  ],
+  "author": "Christoph Dorn <christoph@christophdorn.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codi-sh/codi.sh/issues"
+  },
+  "homepage": "https://github.com/codi-sh/codi.sh"
 }
