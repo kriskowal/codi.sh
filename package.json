@@ -1,0 +1,7 @@
+{
+  "name": "codi.sh",
+  "version": "0.1.0",
+  "dependencies": {
+    "bash.origin": "0.1.x"
+  }
+}

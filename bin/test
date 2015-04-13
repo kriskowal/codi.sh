@@ -1,0 +1,48 @@
+#!/bin/bash
+# Source https://github.com/cadorn/bash.origin
+if [ ! -f "$HOME/.bash.origin" ]; then
+	if [ -f "bin/install" ]; then
+		bin/install
+	else
+		echo "ERROR: Run 'bin/install' first to install 'bash.origin'!"
+		exit 1;
+	fi
+fi
+. "$HOME/.bash.origin"
+function init {
+	eval BO_SELF_BASH_SOURCE="$BO_READ_SELF_BASH_SOURCE"
+	BO_deriveSelfDir ___TMP___ "$BO_SELF_BASH_SOURCE"
+	local __BO_DIR__="$___TMP___"
+
+	function format {
+		if [ "$1" == "HEADER" ]; then
+			echo "##################################################";
+			echo "# $2";
+			echo "##################################################";
+		fi
+		if [ "$1" == "FOOTER" ]; then
+			echo "##################################################";
+			echo ""
+		fi
+	}
+
+	function runTests {
+		format "HEADER" "Running Tests"
+		pushd "$__BO_DIR__"
+			# TODO: Add more tests/demos into sequence.
+			./demo
+			# TODO: Ensure demos fail early if any of the demos fail.
+			# TODO: Look for 'DEMOS DONE' on last line to determine if success.
+		popd
+		format "FOOTER"
+	}
+
+	function signalDone {
+		echo "TESTS DONE"
+	}
+
+
+	runTests
+	signalDone
+}
+init
