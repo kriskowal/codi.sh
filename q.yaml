@@ -1,0 +1,61 @@
+see:
+# estimated time to completion
+# cancellation
+# asap
+--- |
+
+# Asynchronous Promises with Q
+
+If a function cannot return a value or throw an exception without
+blocking, it can return a promise instead.
+A promise is an object that represents the return value or the thrown exception
+that the function may eventually provide.
+
+[The Q Promise Library](https://github.com/kriskowal/q) is the ground-breaking
+promise library for JavaScript, based on the work of [Mark Miller][] and [Tyler
+Close][] and built with substantial contributions from [Domenic Denicola][].
+
+[Mark Miller]: https://en.wikipedia.org/wiki/Mark_S._Miller
+[Tyler Close]: http://waterken.sourceforge.net/web_send/
+[Domenic Denicola]: https://blog.domenic.me/
+
+Often imitated, Q is still a solitary example of a promise library that
+supports queueing messages to remote objects, using [Q-Connection][].
+
+[Q-Connection]: https://github.com/kriskowal/q-connection
+
+Version 1 is a stand-alone library that can be used without modification in
+Node.js and browsers.
+[Version 2][] is a work in progress that trims down the interface, breaks it
+into smaller modules, and adds support for estimated time to completion.
+At the heart of the new Q is the [ASAP][] task library.
+
+[Version 2]: https://github.com/kriskowal/q/tree/v2
+[ASAP]: https://github.com/kriskowal/asap
+
+Notably absent is support for [cancellation][], which in the process of writing
+[A General Theory of Reactivity][GToR], I found to be incompatible with
+promises, but conceivable with something similar, tentatively called Tasks.
+With A General Theory, there is a prototype for this.
+
+[cancellation]: https://github.com/kriskowal/gtor/blob/master/cancelation.md#canceling-asynchronous-tasks
+[GToR]: https://github.com/kriskowal/gtor/blob/master/README.md
+
+Version 2 of Q comes with a [Version 2 of Q-Connection][].
+The new version has better semantics for methods of remote promises.
+A method of a remote reference will always produce another remote reference,
+and only by calling `pull()` will a remote object be serialized and transported
+over the wire to a local copy.
+Only by calling `push()` will a local object be serialized and transported over
+the wirte to a remote copy.
+It is possible to build remote object graphs, complete with cycles.
+
+[Version 2 of Q-Connection]: https://github.com/kriskowal/q-connection/tree/v2#asynchronous-remote-objects
+
+Version 2 of Q and Q-Connection should eventually introduce a `there` method,
+which is like `then`, but accepts code to run where the value is local.
+
+Eventually, [Dr. SES][] (Distributed Robust Secure ECMAScript) will make it
+possible to safely run arbitrary code on behalf of mutually suspicious parties.
+
+[Dr. SES]: https://github.com/drses/

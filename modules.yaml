@@ -1,0 +1,27 @@
+title: Modules, Packages, and Versions
+see:
+# - label: CommonJS
+# - label: System
+--- |
+
+# Modules, Packages, and Versions
+
+Software should be made from small, coherent, loosely coupled, interchangeable
+units with sovereignty over the names in their scope.
+These laws apply equally well to every language, including extensible HTML in
+whatever shape it comes.
+
+Modules should be bundled in packages that declare their relationships to
+versions of other packages.
+The package should provide a level of indirection between modules and the
+versions of their dependencies in other packages.
+
+The package should provide the means to allow the producer to express whether a
+version intends to be backward compatible and give consumers of that package
+the ability to opt-in for backward incompatible versions.
+The package should also provide a level of indirection between the identifiers
+modules use to depend on external modules, and where those modules are
+installed.
+Within a cohort of packages, including their transitive dependencies, no two
+modules should duplicate the same feature, but the more cohorts, the merrier.
+

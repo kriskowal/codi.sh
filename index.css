@@ -1,0 +1,39 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Book Antiqua, Palatino, Palatino Linotype, Palatino LT STD, Georgia, serif;
+}
+
+.column {
+    position: absolute;
+    width: 600px;
+    padding: 20px;
+    border-right: solid #777 4px;
+}
+
+.links {
+    padding: 0;
+    margin: 0;
+}
+
+.link-li {
+    list-style-type: none;
+}
+
+.link {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    border-radius: 10px;
+    border: solid #777 4px;
+    padding: 10px;
+    margin: 4px;
+}
+
+.link:hover {
+    background-color: #eee;
+}
+

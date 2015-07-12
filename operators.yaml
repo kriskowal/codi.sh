@@ -1,0 +1,41 @@
+see:
+- label: Observers
+  href: ./observers.yaml
+--- |
+
+# Operators and Polymorphism
+
+Within a corhort of modules, any pair of functions with the same symbol or name
+should fulfill a common contract, regardless of what type they operate on,
+whether they are free standing functions that accept objects, or objects that
+implement methods.
+
+New operators should be able to extend the behavior of older types, and new
+types should be able to extend older operators.
+
+A well-planned system of objects is beautiful: a system where every meaningful
+method for an object has been anticipated in the design.
+Inevitably, another layer of architecture introduces a new concept and with it
+the temptation to monkey-patch, dunk-punch, or otherwise cover-up the omission.
+But reaching backward in time, up through the layers of architecture doesn't
+always compose well, when different levels introduce concepts of the same name
+but distinct behavior.
+
+A polymorphic operator is a function that accepts as its first argument an
+object and varies its behavior depending on its type.
+Such an operator has the benefit of covering for the types from higher layers of
+architecture, but defers to the eponymous method name of types yet to be
+defined.
+Such functions make it possible for a single interface to extend earlier layers
+of architecture and be extended by later layers of architecture.
+
+- [pop-clear](https://github.com/kriskowal/pop-clear)
+- [pop-zip](https://github.com/kriskowal/pop-zip)
+- [pop-has](https://github.com/kriskowal/pop-has)
+- [pop-iterate](https://github.com/kriskowal/pop-iterate)
+- [pop-clone](https://github.com/kriskowal/pop-clone)
+- [pop-compare](https://github.com/kriskowal/pop-compare)
+- [pop-swap](https://github.com/kriskowal/pop-swap)
+- [pop-hash](https://github.com/kriskowal/pop-hash)
+- [pop-observe](https://github.com/kriskowal/pop-observe)
+

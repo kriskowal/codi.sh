@@ -1,0 +1,30 @@
+see:
+- label: Q Promises
+  href: ./q.yaml
+- label: Collections
+  href: ./collections.yaml
+- label: Operators
+  href: ./operators.yaml
+- label: Observers
+  href: ./observers.yaml
+- label: Module System
+  href: ./system.yaml
+- label: Guten Tag, HTML Modules!
+  href: ./gutentag.yaml
+
+- label: About This
+  href: ./about.yaml
+
+# - label: Packages and Modules
+#   href: ./packages.yaml
+# - label: Collections and Operators
+#   href: ./collections.yaml
+# - label: Reactivity
+# - label: The Front
+# - label: The Back
+# - label: And Back Again
+#   href: ./adventure.yaml
+--- |
+
+Choose your own adventure!
+

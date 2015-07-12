@@ -1,0 +1,53 @@
+see:
+- label: Polymorphic Operators
+  href: ./operators.yaml
+# - label: Kernel Operators
+# - label: Polymorphic Operators
+# - label: Observable Operators
+# packages:
+# - collections
+# - collectionsjs.com
+# - mini-map
+--- |
+
+# Collections
+
+<!--
+There is a cafeteria of operators that collections should pick from to form
+their interface.
+The contract is intrinsic to the operator, not the collection.
+A collection should implement every applicable operator.
+Many of these operators have generic implementations that can be implemented in
+terms of a small kernel from the whole body of operators.
+
+Collections should also be observable.
+Each collection supports the applicable change observer functions for
+property changes (including length), splice-like changes (range changes), and
+key value changes (map changes).
+-->
+
+Array was only the beginning.
+The collections library provides lists, sets, and maps of various kinds.
+These are available in npm with `npm install collections` and useful both in
+browsers and Node.js.
+
+See [collectionsjs.com](http://www.collectionsjs.com/) for thorough
+documentation of [Collections, Version 1][].
+
+[Collections, Version 1]: https://github.com/montagejs/collections
+
+Version 1 is at the heart of [MontageJS][], providing extensions to the Array
+and Object prototypes, as well as change listeners that are the foundation of
+Montage MVC bindings with [FRB][].
+
+[MontageJS]: http://montagestudio.com/montagejs/
+[FRB]: https://github.com/montagejs/frb/
+
+[Collections, Version 2][] removes all of these shims in favor of polymorphic operators, each
+packaged separately, including [pop-swap][] for high performance array
+changes, and [pop-observe][] for change observers on most collections.
+
+[Collections, Version 2]: https://github.com/kriskowal/collections
+[pop-swap]: https://github.com/kriskowal/pop-swap/
+[pop-observe]: https://github.com/kriskowal/pop-observe/
+

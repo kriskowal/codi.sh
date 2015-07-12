@@ -1,0 +1,15 @@
+see:
+--- |
+
+Hello,
+
+This application is an index of a cohort of packages I maintain for JavaScript.
+There is an overlapping and branching narrative to these projects which I hope
+is evident.
+
+All of these packages work for both Node.js and for browsers.
+They are insular but coherent.
+They are more useful together than alone.
+
+Kris Kowal
+

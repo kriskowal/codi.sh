@@ -1,0 +1,20 @@
+see:
+- label: Collections
+  href: ./collections.yaml
+- label: Polymorphic Operators
+  href: ./operators.yaml
+--- |
+
+# Observers
+
+The [observers][] package makes it possible to observe changes to arrays and
+other collections.
+Changes come in three kinds, all of which are meaningful for arrays, some of
+which are applicable to other collections and can be implemented by others.
+
+- property changes, including the length of an array
+- range changes, from swapping some values at an index for some other values
+- map changes, from changing the value at a key or index
+
+[observers]: https://github.com/kriskowal/pop-observe
+

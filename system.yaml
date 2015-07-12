@@ -1,0 +1,64 @@
+see:
+# - label: Guten Tag
+#   href: ./gutentag.yaml
+--- |
+
+# System
+
+[System][] is a packaged module loader and bundler for browsers and Node.js.
+For browsers, it supports refresh-to-reload debugging, as well as a build step
+compatible with Browserify to produce bundles for production.
+
+[System]: https://github.com/gutentags/system
+
+To use, `npm install -S system` in your package.  Then use the boot script to
+load your entry module.
+
+```html
+<script
+    src="node_modules/system/boot.js"
+    data-import="./entry">
+</script>
+```
+
+System loads CommonJS modules and JSON by default, just like Node.js and
+Browserify, including support for `index.js` files.
+In addition, each package can translate modules from other languages to
+JavaScript, on-the-fly in the browser during development, and during a build
+step in Node.js for production.
+
+Translators are configured per-package in `package.json`.
+
+```json
+{
+  "translators": {
+    "text": "./translate-text"
+  }
+}
+```
+
+A translator module must export a function that modifies a module object,
+specifically its `text` property and `dependencies` array.
+
+```js
+"use strict";
+module.exports = function translateText(module) {
+    module.text = "module.exports = " +
+        JSON.stringify(module.text);
+};
+```
+
+Use the enclosed `bundle` script to create a `bundle.js` from your
+`entry.js` module for deployment.
+Translator modules need to run both in the browser and in Node.js for this to
+work properly.
+
+```
+$ bundle entry.js > bundle.js
+```
+
+The Module System opens the door for many opportunities including HTML modules
+with [Guten Tag][].
+
+[Guten Tag]: https://github.com/gutentags/gutentag
+
