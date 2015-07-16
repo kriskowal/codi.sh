@@ -12,44 +12,62 @@ DirectionEventTranslator.prototype.handleEvent = function (event) {
     var handler = this.handler;
 
     if (event.type === "keypress") {
-        if (key === "h" && handler.handleLeftCommand) {
-            return handler.handleLeftCommand(event);
-        } else if (key === "j" && handler.handleDownCommand) {
-            return handler.handleDownCommand(event);
-        } else if (key === "k" && handler.handleUpCommand) {
-            return handler.handleUpCommand(event);
-        } else if (key === "l" && handler.handleRightCommand) {
-            return handler.handleRightCommand(event);
-        } else if (key === "H" && handler.handleShiftLeftCommand) {
-            return handler.handleShiftLeftCommand(event);
-        } else if (key === "J" && handler.handleShiftDownCommand) {
-            return handler.handleShiftDownCommand(event);
-        } else if (key === "K" && handler.handleShiftUpCommand) {
-            return handler.handleShiftUpCommand(event);
-        } else if (key === "L" && handler.handleShiftRightCommand) {
-            return handler.handleShiftRightCommand(event);
+        if (key === "h" && handler.handleLeft) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleLeft(event);
+        } else if (key === "j" && handler.handleDown) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleDown(event);
+        } else if (key === "k" && handler.handleUp) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleUp(event);
+        } else if (key === "l" && handler.handleRight) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleRight(event);
+        } else if (key === "H" && handler.handleShiftLeft) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleShiftLeft(event);
+        } else if (key === "J" && handler.handleShiftDown) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleShiftDown(event);
+        } else if (key === "K" && handler.handleShiftUp) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleShiftUp(event);
+        } else if (key === "L" && handler.handleShiftRight) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleShiftRight(event);
         }
     } else if (event.type === "keydown") {
         if (keyCode === 13 && handler.handleEnter) {
+            event.preventDefault(); event.stopPropagation();
             return handler.handleEnter(event);
         } else if (keyCode === 27 && handler.handleEscape) {
+            event.preventDefault(); event.stopPropagation();
             return handler.handleEscape(event);
-        } else if (keyCode === 37 && event.shiftKey && handler.handleShiftLeftCommand) {
-            return handler.handleShiftLeftCommand(event);
-        } else if (keyCode === 37 && handler.handleLeftCommand) {
-            return handler.handleLeftCommand(event);
-        } else if (keyCode === 38 && handler.handleUpCommand) {
-            return handler.handleUpCommand(event);
-        } else if (keyCode === 39 && event.shiftKey && handler.handleShiftRightCommand) {
-            return handler.handleShiftRightCommand(event);
-        } else if (keyCode === 39 && handler.handleRightCommand) {
-            return handler.handleRightCommand(event);
-        } else if (keyCode === 40 && handler.handleDownCommand) {
-            return handler.handleDownCommand(event);
+        } else if (keyCode === 37 && event.shiftKey && handler.handleShiftLeft) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleShiftLeft(event);
+        } else if (keyCode === 37 && handler.handleLeft) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleLeft(event);
+        } else if (keyCode === 38 && handler.handleUp) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleUp(event);
+        } else if (keyCode === 39 && event.shiftKey && handler.handleShiftRight) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleShiftRight(event);
+        } else if (keyCode === 39 && handler.handleRight) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleRight(event);
+        } else if (keyCode === 40 && handler.handleDown) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleDown(event);
         }
     }
 
-    return handler.handleEvent(event);
+    if (handler.handleEvent) {
+        return handler.handleEvent(event);
+    }
 };
 
 DirectionEventTranslator.prototype.focus = function focus() {

@@ -46,3 +46,7 @@ Page.prototype.navigate = function navigate(value) {
 Page.prototype.focus = function focus() {
     this.see.focus();
 };
+
+Page.prototype.handleEnter = function handleEnter() {
+    this.see.handleEnter();
+};

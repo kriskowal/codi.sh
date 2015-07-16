@@ -7,9 +7,11 @@ module.exports = List;
 function List(body, scope) {
     this.navigator = null;
     this.optionsComponent = null;
+    this.optionsElement = null;
     this.activeIndex = null;
     this.activeIteration = null;
     this.directionEventTranslator = new DirectionEventTranslator(this);
+    this.attention = scope.attention;
 }
 
 Object.defineProperty(List.prototype, "options", {
@@ -24,8 +26,10 @@ Object.defineProperty(List.prototype, "options", {
 List.prototype.add = function add(component, id, scope) {
     if (id === "this") {
         this.optionsComponent = scope.components.options;
+        this.optionsElement = scope.components.optionsList;
     } else if (id === "options:iteration") {
         scope.components.optionLink.addEventListener("click", this);
+        scope.components.optionLink.setAttribute("href", "");
         scope.components.optionLink.delegate = component;
     }
 };
@@ -53,6 +57,9 @@ List.prototype.handleEnter = function handleEnter(event) {
 };
 
 List.prototype.activateIteration = function activateIteration(iteration) {
+    if (!iteration) {
+        throw new Error("Can't activate null iteration");
+    }
     if (this.activeIteration) {
         this.deactivateIteration(this.activeIteration);
     }
@@ -67,7 +74,7 @@ List.prototype.deactivateIteration = function deactivateIteration(iteration) {
     this.activeIteration = null;
 };
 
-List.prototype.handleDownCommand = function handleDownCommand(event) {
+List.prototype.handleDown = function handleDown(event) {
     var iterations = this.optionsComponent.iterations;
     if (this.activeIteration) {
         var index = this.activeIteration.index;
@@ -75,10 +82,11 @@ List.prototype.handleDownCommand = function handleDownCommand(event) {
         this.activateIteration(iterations[index]);
     } else if (iterations.length) {
         this.activateIteration(iterations[0]);
+        this.scrollIntoView();
     }
 };
 
-List.prototype.handleUpCommand = function handleUpCommand(event) {
+List.prototype.handleUp = function handleUp(event) {
     var iterations = this.optionsComponent.iterations;
     if (this.activeIteration) {
         var index = this.activeIteration.index;
@@ -86,17 +94,28 @@ List.prototype.handleUpCommand = function handleUpCommand(event) {
         this.activateIteration(iterations[index]);
     } else {
         this.activateIteration(iterations[0]);
+        this.scrollIntoView();
     }
 };
 
+List.prototype.scrollIntoView = function scollIntoView() {
+    this.optionsElement.scrollIntoView();
+};
+
 List.prototype.focus = function focus() {
+    this.attention.take(this);
     this.directionEventTranslator.focus();
     var iterations = this.optionsComponent.iterations;
     if (!this.activeIteration && iterations.length) {
         this.activateIteration(iterations[0]);
+    } else if (this.activeIteration) {
+        this.activeIteration.scope.components.optionLink.classList.add("optionActive");
     }
 };
 
 List.prototype.blur = function blur() {
     this.directionEventTranslator.blur();
+    if (this.activeIteration) {
+        this.activeIteration.scope.components.optionLink.classList.remove("optionActive");
+    }
 };

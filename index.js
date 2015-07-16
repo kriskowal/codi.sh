@@ -2,7 +2,10 @@
 var Document = require("gutentag/document");
 var Scope = require("gutentag/scope");
 var Main = require("./main.html");
+var Attention = require("./attention.js");
 var document = new Document(window.document.body);
 var scope = new Scope();
+scope.attention = new Attention();
 scope.main = new Main(document.documentElement, scope);
 scope.main.value = require("./index.yaml");
+scope.main.focus();
