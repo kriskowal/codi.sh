@@ -39,6 +39,8 @@ List.prototype.handleEvent = function handleEvent(event) {
         event.preventDefault();
         event.stopPropagation();
         if (event.target.delegate) {
+            this.activateIteration(event.target.delegate);
+            event.target.delegate.scope.components.optionLink.classList.remove("optionActive");
             return this.navigator.navigate(event.target.delegate.value.value);
         }
     }
