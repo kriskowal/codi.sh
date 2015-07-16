@@ -15,13 +15,15 @@ Columns.prototype.add = function (component, id, scope) {
     }
 };
 
-Columns.prototype.navigate = function (document, index) {
+Columns.prototype.navigate = function (value, index) {
     index = index || 0;
-    var pos = this.columns.value.indexOf(document);
+    var pos = this.columns.value.indexOf(value);
     if (pos < 0) {
-        this.columns.value.splice(index + 1, this.columns.value.length - index - 1, document);
+        this.columns.value.splice(index + 1, this.columns.value.length - index - 1, value);
+        this.columns.iterations[index].focus();
     } else {
         this.columns.value.splice(pos + 1, this.columns.value.length);
+        this.columns.iterations[pos].focus();
     }
     window.scrollTo(600 * index, 0);
 };

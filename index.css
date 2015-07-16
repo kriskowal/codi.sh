@@ -14,16 +14,16 @@ body {
     border-right: solid #777 4px;
 }
 
-.links {
+.options {
     padding: 0;
     margin: 0;
 }
 
-.link-li {
+.optionItem {
     list-style-type: none;
 }
 
-.link {
+.option {
     display: block;
     color: #000;
     text-decoration: none;
@@ -33,7 +33,10 @@ body {
     margin: 4px;
 }
 
-.link:hover {
+.option:hover {
     background-color: #eee;
 }
 
+.optionActive {
+    border-style: dotted;
+}

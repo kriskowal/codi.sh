@@ -9,8 +9,8 @@ see:
   href: ./observers.yaml
 - label: Module System
   href: ./system.yaml
-- label: Guten Tag, HTML Modules!
-  href: ./gutentag.yaml
+# - label: Guten Tag, HTML Modules!
+#   href: ./gutentag.yaml
 
 - label: About This
   href: ./about.yaml
