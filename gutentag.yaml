@@ -1,6 +1,6 @@
 see:
-- label: Module System
-  href: ./system.yaml
+- label: Examples
+  href: ./gutentag/examples.yaml
 - label: Features of Tags
   href: ./gutentag/features.yaml
 - label: Booting up Guten Tags
@@ -13,6 +13,8 @@ see:
   href: ./gutentag/args-and-scopes.yaml
 - label: XML
   href: ./gutentag/xml.yaml
+- label: Module System
+  href: ./system.yaml
 --- |
 
 # Guten Tag!

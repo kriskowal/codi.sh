@@ -1,0 +1,26 @@
+see:
+- label: Guten Tag!
+  href: ../gutentag.yaml
+--- |
+
+# Examples
+
+- [Accrete][] is a clone of the popular 2048 game. The
+  [source](https://github.com/gutentags/accrete.html) is on Github.
+
+- [Colorim][] is a full page color picker with vim-like keybindings.
+  [source](https://github.com/gutentags/colorim.html) is on Github,
+  and this component can be installed from npm to incorporate in
+  your source.
+
+- [Tengwar Transcriber][] is a tool for transcribing into the Elvish alphabet
+  using various web fonts.
+  [source](https://github.com/gutentags/tengwar.html) is on Github.
+
+- `codi.sh` is a Guten Tag application.
+  [source](https://github.com/kriskowal/codi.sh) is on Github.
+
+[Colorim]: https://gutentags.github.io/colorim.html/
+[Accrete]: http://gutentags.github.io/accrete.html/
+[Tengwar Transcriber]: https://gutentags.github.io/tengwar.html/
+
