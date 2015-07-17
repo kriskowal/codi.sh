@@ -11,6 +11,8 @@ see:
   href: ./gutentag/custom.yaml
 - label: Arguments and Scopes
   href: ./gutentag/args-and-scopes.yaml
+- label: XML
+  href: ./gutentag/xml.yaml
 --- |
 
 # Guten Tag!

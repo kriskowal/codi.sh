@@ -1,0 +1,39 @@
+see:
+- label: Built in Tags
+  href: ./builtins.yaml
+--- |
+
+# reveal.html
+
+Reveals its content based on whether `value` is truthy.
+
+```html
+<!doctype html>
+<html>
+    <head>
+        <link rel="extends" href="./blink">
+        <link rel="tag" href="gutentag/reveal.html">
+        <meta accepts="[body]">
+    </head>
+    <body>
+        <reveal id="content"><argument></argument></reveal>
+    </body>
+</html>
+```html
+
+```js
+'use strict';
+module.exports = Blink;
+function Blink() {}
+Blink.prototype.add = function (component, id) {
+    if (id === "content") {
+        setInterval(function () {
+            component.value = !component.value;
+        }, 1000);
+    }
+}
+```
+
+A `<reveal id="content">` tag instantiates its inner content in a
+`content:revelation` scope each time it reveals that content.
+

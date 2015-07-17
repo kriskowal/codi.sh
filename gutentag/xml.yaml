@@ -1,0 +1,59 @@
+- label: Guten Tag!
+  href: ../gutentag.yaml
+--- |
+
+# XML
+
+Gutentag supports XML for cases where the HTML5 parser gets in your way.
+For example, the HTML5 parser does not allow a ``<repeat>`` tag to exist within
+a ``<table>``. XML does.
+
+```xml
+<html>
+    <head>
+        <link rel="extends" href="./grid"/>
+        <link rel="tag" href="gutentag/repeat.html"/>
+        <link rel="tag" href="gutentag/text.html"/>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr id="columnRow">
+                    <th></th>
+                    <repeat id="columns">
+                        <th><text id="ch"/></th>
+                    </repeat>
+                </tr>
+            </thead>
+            <tbody>
+                <repeat id="rows">
+                    <th><text id="rh"/></th>
+                    <repeat id="cells">
+                        <td><text id="cd"/></td>
+                    </repeat>
+                </repeat>
+            </tbody>
+        </table>
+    </body>
+</html>
+```
+
+Guten Tag uses the [Domenic][] module for XML and HTML parsing both in Node.js
+and in the browser.
+This provides a thin abstraction for document parsing provided by the native
+DOM parser on the client side or one of two modules for XML and HTML parsing in
+Node.js.
+
+[Domenic]: https://github.com/montagejs/domenic
+
+It would be good to replace both HTML and XML parsing with an SGML parser tuned
+for the needs of Guten Tag.
+Specifically, none of these DOM parsers bring source locations to the surface,
+which would be necessary for generating HTML to JavaScript [Source Maps][].
+With guten tags, it would also be possible for each component to declare how it
+wishes to be handled, with regard to auto-closing tags.
+For these, I am looking to possibly build on [htmlparser2][].
+
+[Source Maps]: http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/
+[htmlparser2]: [https://github.com/fb55/htmlparser2
+
