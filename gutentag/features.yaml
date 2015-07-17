@@ -1,0 +1,206 @@
+see:
+- label: Guten Tag!
+  href: ../gutentag.yaml
+--- |
+
+# Features of Guten Tags
+
+Guten tags express their dependencies on other tags using links with the "tag"
+relationship in their `<head>`.
+In this examle, we import the `<repeat>` and `<text>` tags from Guten Tag
+modules.
+
+```html
+<head>
+    <link rel="extends" href="./list">
+    <link rel="tag" href="gutentag/repeat.html">
+    <link rel="tag" href="gutentag/text.html">
+</head>
+```
+
+Guten tags have a lexical scope for component and element identifiers, and can
+introduce components into caller scopes under the identifier of the caller.
+In this example, there is a repetition with an id of "items" that introduces
+"items:iteration" in the iteration scopes from the body of the repetition.
+
+```html
+<ul><repeat id="items">
+    <li id="item" type="a"><text id="text"></text></li>
+</repeat></ul>
+```
+
+Guten tag only provides the `<text>`, `<html>`, `<repeat>`, `<reveal>`, and
+`<choose>` tags and the system for loading tags.
+Bring your own bindings, shims, data, animation, or virtual document if you need
+them.
+The "Guten Tag, Welt!" application is about 15K and 3K after uglify and gzip.
+
+A tag is defined in HTML or XML and can import tags from other HTML modules.
+This `list.html` tag produces a list at whatever point in a document you
+incorporate it.
+An instance of a tag is a component.
+
+```html
+<!doctype html>
+<html>
+    <head>
+        <link rel="extends" href="./list">
+        <link rel="tag" href="gutentag/repeat.html">
+        <link rel="tag" href="gutentag/text.html">
+    </head>
+    <body>
+        <ul><repeat id="items">
+            <li id="item" type="a"><text id="text"></text></li>
+        </repeat></ul>
+    </body>
+</html>
+```
+
+A JavaScript module, `list.js`, connects the components of the list.
+The HTML module exports a constructor for the module and calls into the `add`
+method of the underlying JavaScript implementation, if it exists.
+
+```js
+'use strict';
+module.exports = List;
+function List() {}
+List.prototype.add = function (child, id, scope) {
+    if (id === "items:iteration") {
+        scope.text.value = child.value;
+    } else if (id === "this") {
+        this.items = scope.items;
+    }
+};
+```
+
+Trivial tags can live without an underlying JavaScript implementation.
+
+Tags modules compile to JavaScript that export a component constructor..
+The constructor accepts a `body` and a `caller` scope.
+
+```
+"use strict";
+module.exports = Component;
+function Component(body, caller) {
+    this.scope = caller.root.nestComponents();
+    body.appendChild(document.createTextNode("Guten Tag, Welt!\n"));
+}
+```
+
+The `body` is a special kind of node in a virtual document.
+It represents a point in the actual document that the given tag will control.
+Bodies can be added and removed from the virtual document, and all of their
+content will be (synchronously) added or removed from the actual document.
+However, bodies do not introduce a container element, like a `<div>`.
+This is critical for the Gutenttag structural tags, `<repeat>`, `<reveal>`, and
+`<choose>`, since you may or may not need a container element around them or
+inside them, and you may want one or more of these inline.
+
+```html
+<table>
+    <tr>
+        <th><!-- corner --></th>
+        <th id="groupOneHeader" colspan=""></th>
+        <th id="groupTwoHeader" colspan=""></th>
+    </tr>
+    <tr>
+        <th><text id="rowHeader"></text></th>
+        <repeat id="groupOne">
+            <td><text id="cell"></text></td>
+        </repeat>
+        <repeat id="groupTwo">
+            <td><text id="cell"></text></td>
+        </repeat>
+    </tr>
+</table>
+```
+
+In other cases, having a wrapper element would interfere with CSS selectors,
+particularly for the flex model, or would interfere with semantic markup.
+
+```html
+<repeat id="stanzas"><p class="stanza">
+    <repeat id="lines">
+        <text id="line"></text>
+        <reveal id="medial"><br></reveal>
+    </repeat>
+</p></repeat>
+```
+
+Sometimes it is useful to compose text without container elements at all.
+
+```html
+<sp><text id="hello">, <text id="person">!</sp>
+```
+
+The `caller` object is a scope container that inherits properties along its
+prototype chain up to the root scope.
+This makes the root scope object an ideal container for dependency injection.
+The `scope.root` refers to that root scope from any descendant scope.
+Each scope also has a direct reference to its `scope.parent`.
+
+In a component, `scope.this` will always refer to the component instantiated by
+containing tag document.
+So, in `foo.html`, `scope.this` is the containing instance of the `Foo`
+component.
+The `scope.components` object maps component identifiers in that scope to their
+corresponding component instance.
+
+Every subcomponent has a scope, but many scopes share the same
+`scope.components`.
+The body of an HTML tag is the root of a lexical scope and introduces an empty
+`scope.components` object to which each child component adds itslef.
+In this example, the `scope.components` object will have `hello` and `person`
+components.
+Note that Gutentags trim implied white space between tags and the `<sp>` special
+tag notes explicit template text.
+
+```html
+<!doctype html>
+<html>
+    <head>
+        <link rel="tag" href="gutentag/text.html">
+    </head>
+    <body>
+        <text id="hello"></text><sp>, </sp>
+        <text id="person">!
+    </body>
+</html>
+```
+
+The Gutentag building blocks, `<repeat>`, `<reveal>`, and `<choose>` create
+child scopes that introduce a new `scope.components` object that inherits
+prototypically from the containing scope's components,
+`scope.parent.components`.
+In this example, the "hello" and "person" components are each within a
+"greetings:iteration" component and have access to `scope.components.header`,
+but from the perspective of the "header", it is in a scope by itself.
+
+```html
+<!doctype html>
+<html>
+    <head>
+        <link rel="tag" href="gutentag/text.html">
+        <link rel="tag" href="gutentag/repeat.html">
+    </head>
+    <body>
+        <h1><text id="header"></h1>
+        <repeat id="greetings">
+            <text id="hello"></text><sp>, </sp>
+            <text id="person">!
+        </repeat>
+    </body>
+</html>
+```
+
+Each scope may also have a `scope.caller` property, referring to the lexical
+scope of the tag that instantiated this component, and a `scope.argument`
+referring to a template for the content of the instantiating tag.
+
+Instantiating a tag from within a tag also passes its inner content as a
+template in the form requested by that tag through its `<meta accepts>` header.
+For example, `text.html` has `<meta accepts="[text]">`, `repeat.html` has `<meta
+accepts="[body]">`, and `choose.html` has `<meta accepts="[entries]">`.
+Each of these packs the content into `caller.argument` in the fashion expected
+by the component.
+

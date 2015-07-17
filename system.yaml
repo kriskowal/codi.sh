@@ -1,6 +1,8 @@
 see:
-# - label: Guten Tag
-#   href: ./gutentag.yaml
+- label: Guten Tag
+  href: ./gutentag.yaml
+- label: Promises
+  href: ./q.yaml
 --- |
 
 # System
@@ -61,4 +63,13 @@ The Module System opens the door for many opportunities including HTML modules
 with [Guten Tag][].
 
 [Guten Tag]: https://github.com/gutentags/gutentag
+
+The Module System also uses [Q version 2 promises][Q] internally.
+If you import `system`, you will get the `System` object, which in turn has a
+`loadSystem(location)` method.
+This returns a promise for a system instance for the package at that location.
+System instances have an `import(identifier)` method, which in turn returns a
+promise for the exports of the entry module.
+
+[Q]: https://github.com/kriskowal/q/tree/v2
 

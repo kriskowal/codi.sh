@@ -7,7 +7,7 @@ see:
 
 # Observers
 
-The [observers][] package makes it possible to observe changes to arrays and
+The [pop-observe][] package makes it possible to observe changes to arrays and
 other collections.
 Changes come in three kinds, all of which are meaningful for arrays, some of
 which are applicable to other collections and can be implemented by others.
@@ -16,5 +16,28 @@ which are applicable to other collections and can be implemented by others.
 - range changes, from swapping some values at an index for some other values
 - map changes, from changing the value at a key or index
 
-[observers]: https://github.com/kriskowal/pop-observe
+[pop-observe]: https://github.com/kriskowal/pop-observe
+
+Change observer functions, like `observeRangeChange`, accept the object to
+observe and a change handler function, or change handler object with a
+distinguished method like `handleRangeChange`.
+
+Change observer functions can be stacked.
+Calling such a funcion returns an observer object with a `cancel()` method.
+That observer object can be returned by a change handler function.
+So, if `handleRangeChange` were to return an observer, the parent observer
+would cancel it before calling `handleRangeChange` again.
+
+Change observers are the primitive from which we can build synchronous data
+bindings.
+
+For example, stacking observers is the heart of the design of MontageJS’s
+[FRB][], though FRB has not been updated to use this library.
+It uses the change listeners provided in [Version 1 of
+Collections][Collections].
+The intent is to rebuild FRB, or something very much like FRB, using POP
+Observers.
+
+[FRB]: https://github.com/montagejs/frb
+[Collections]: https://github.com/montagejs/collections
 

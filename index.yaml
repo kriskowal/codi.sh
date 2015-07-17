@@ -5,13 +5,14 @@ see:
   href: ./collections.yaml
 - label: Operators
   href: ./operators.yaml
-- label: Observers
+- label: Change Observers
   href: ./observers.yaml
+- label: Bindings
+  href: ./bindings.yaml
 - label: Module System
   href: ./system.yaml
-# - label: Guten Tag, HTML Modules!
-#   href: ./gutentag.yaml
-
+- label: Guten Tag, HTML Modules!
+  href: ./gutentag.yaml
 - label: About This
   href: ./about.yaml
 

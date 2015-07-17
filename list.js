@@ -67,12 +67,14 @@ List.prototype.activateIteration = function activateIteration(iteration) {
     }
     var optionLink = iteration.scope.components.optionLink;
     optionLink.classList.add("optionActive");
+    optionLink.scrollIntoView();
     this.activeIteration = iteration;
 };
 
 List.prototype.deactivateIteration = function deactivateIteration(iteration) {
     var optionLink = iteration.scope.components.optionLink;
     optionLink.classList.remove("optionActive");
+    optionLink.scrollIntoView();
     this.activeIteration = null;
 };
 
@@ -84,7 +86,6 @@ List.prototype.handleDown = function handleDown(event) {
         this.activateIteration(iterations[index]);
     } else if (iterations.length) {
         this.activateIteration(iterations[0]);
-        this.scrollIntoView();
     }
 };
 
@@ -96,7 +97,6 @@ List.prototype.handleUp = function handleUp(event) {
         this.activateIteration(iterations[index]);
     } else {
         this.activateIteration(iterations[0]);
-        this.scrollIntoView();
     }
 };
 
