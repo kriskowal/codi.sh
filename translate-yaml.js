@@ -24,11 +24,13 @@ function translateYaml(module) {
             module.dependencies.push(link.href);
             text +=
                 "see.push({label: " + JSON.stringify(link.label) +
+                ", href: " + JSON.stringify(link.href) +
                 ", value: require(" + JSON.stringify(link.href) + ")});\n";
         }
     });
 
-    text += "var head = {see: see};\n";
+    text += "var slug = " + JSON.stringify(head.slug) + ";\n";
+    text += "var head = {see: see, slug: slug};\n";
     text += "exports.head = head;\n";
     text += "exports.body = body;\n";
 

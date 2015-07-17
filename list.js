@@ -41,7 +41,7 @@ List.prototype.handleEvent = function handleEvent(event) {
         if (event.target.delegate) {
             this.activateIteration(event.target.delegate);
             event.target.delegate.scope.components.optionLink.classList.remove("optionActive");
-            return this.navigator.navigate(event.target.delegate.value.value);
+            return this.navigator.navigate(event.target.delegate.value);
         }
     }
 };
@@ -54,7 +54,7 @@ List.prototype.handleEscape = function handleEscape(event) {
 
 List.prototype.handleEnter = function handleEnter(event) {
     if (this.activeIteration) {
-        this.navigator.navigate(this.activeIteration.value.value);
+        this.navigator.navigate(this.activeIteration.value);
     }
 };
 

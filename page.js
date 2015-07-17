@@ -1,12 +1,15 @@
 "use strict";
 
 var Identifier = require("system/identifier");
+var URL = require('url');
 
 module.exports = Page;
 
-function Page() {
+function Page(body, scope) {
     this.navigator = null;
     this.navigationIndex = null;
+    this.history = scope.history;
+    this.index = scope.index;
 }
 
 Object.defineProperty(Page.prototype, "value", {
@@ -28,7 +31,9 @@ Page.prototype.add = function (component, id, scope) {
     }
 };
 
-Page.prototype.navigate = function navigate(value) {
+Page.prototype.navigate = function navigate(document) {
+    var value = document.value;
+    this.history.change(value.head.slug);
     return this.navigator.navigate(value, this.navigationIndex);
 };
 
@@ -39,3 +44,4 @@ Page.prototype.focus = function focus() {
 Page.prototype.handleEnter = function handleEnter() {
     this.see.handleEnter();
 };
+
