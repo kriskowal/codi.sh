@@ -13,18 +13,7 @@ Object.defineProperty(Page.prototype, "value", {
     get: function get() {
     },
     set: function set(document) {
-        this.see.options = (document.head.see || []).map(function (see) {
-            var option = {label: see.label};
-            if (see.href) {
-                if (module.system) {
-                    option.value = module.system.systems["codi.sh"].require(see.href);
-                } else {
-                    var id = Identifier.resolve(see.href, "codi.sh/");
-                    option.value = module.modules[id]._require();
-                }
-            }
-            return option;
-        });
+        this.see.options = document.head.see;
         this.body.value = document.body;
     }
 });
