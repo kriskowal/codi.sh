@@ -10,8 +10,14 @@ body {
 .column {
     position: absolute;
     width: 600px;
+    height: 100%;
     padding: 20px;
     border-right: solid #777 4px;
+    overflow: auto;
+}
+
+.columnActive {
+    border-right: dotted #777 4px;
 }
 
 .options {
@@ -40,3 +46,4 @@ body {
 .optionActive {
     border-style: dotted;
 }
+

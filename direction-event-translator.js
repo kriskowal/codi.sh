@@ -24,6 +24,15 @@ DirectionEventTranslator.prototype.handleEvent = function (event) {
         } else if (key === "l" && handler.handleRight) {
             event.preventDefault(); event.stopPropagation();
             return handler.handleRight(event);
+        } else if (key === "g" && handler.handleTop) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleTop(event);
+        } else if (key === "u" && handler.handleScrollUp) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleScrollUp(event);
+        } else if (key === "d" && handler.handleScrollDown) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleScrollDown(event);
         } else if (key === "H" && handler.handleShiftLeft) {
             event.preventDefault(); event.stopPropagation();
             return handler.handleShiftLeft(event);
@@ -36,11 +45,17 @@ DirectionEventTranslator.prototype.handleEvent = function (event) {
         } else if (key === "L" && handler.handleShiftRight) {
             event.preventDefault(); event.stopPropagation();
             return handler.handleShiftRight(event);
+        } else if (key === "G" && handler.handleBottom) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleBottom(event);
         }
     } else if (event.type === "keydown") {
         if (keyCode === 13 && handler.handleEnter) {
             event.preventDefault(); event.stopPropagation();
             return handler.handleEnter(event);
+        } else if (keyCode === 32 && handler.handleScrollDown) {
+            event.preventDefault(); event.stopPropagation();
+            return handler.handleScrollDown(event);
         } else if (keyCode === 27 && handler.handleEscape) {
             event.preventDefault(); event.stopPropagation();
             return handler.handleEscape(event);

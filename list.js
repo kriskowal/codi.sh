@@ -40,7 +40,6 @@ List.prototype.handleEvent = function handleEvent(event) {
         event.stopPropagation();
         if (event.target.delegate) {
             this.activateIteration(event.target.delegate);
-            event.target.delegate.scope.components.optionLink.classList.remove("optionActive");
             return this.navigator.navigate(event.target.delegate.value);
         }
     }
@@ -58,6 +57,10 @@ List.prototype.handleEnter = function handleEnter(event) {
     }
 };
 
+List.prototype.handleRight = function handleRight(event) {
+    this.handleEnter(event);
+};
+
 List.prototype.activateIteration = function activateIteration(iteration) {
     if (!iteration) {
         throw new Error("Can't activate null iteration");
@@ -69,9 +72,11 @@ List.prototype.activateIteration = function activateIteration(iteration) {
     optionLink.classList.add("optionActive");
     optionLink.scrollIntoView();
     this.activeIteration = iteration;
+    this.navigator.activate(this.activeIteration.value);
 };
 
 List.prototype.deactivateIteration = function deactivateIteration(iteration) {
+    this.navigator.deactivate(iteration.value);
     var optionLink = iteration.scope.components.optionLink;
     optionLink.classList.remove("optionActive");
     optionLink.scrollIntoView();
@@ -95,7 +100,7 @@ List.prototype.handleUp = function handleUp(event) {
         var index = this.activeIteration.index;
         index = (index - 1 + iterations.length) % iterations.length;
         this.activateIteration(iterations[index]);
-    } else {
+    } else if (iterations.length) {
         this.activateIteration(iterations[0]);
     }
 };
@@ -108,9 +113,7 @@ List.prototype.focus = function focus() {
     this.attention.take(this);
     this.directionEventTranslator.focus();
     var iterations = this.optionsComponent.iterations;
-    if (!this.activeIteration && iterations.length) {
-        this.activateIteration(iterations[0]);
-    } else if (this.activeIteration) {
+    if (this.activeIteration) {
         this.activeIteration.scope.components.optionLink.classList.add("optionActive");
     }
 };
