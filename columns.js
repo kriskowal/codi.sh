@@ -1,6 +1,7 @@
 "use strict";
 
 var DirectionEventTranslator = require("./direction-event-translator");
+var ScrollAnimator = require("./scroll-animator");
 
 module.exports = Columns;
 
@@ -10,6 +11,8 @@ function Columns(body, scope) {
     this.directionEventTranslator = new DirectionEventTranslator(this);
     this.activeIteration = null;
     this.activeIndex = -1;
+    this.animator = scope.animator;
+    this.scrollAnimator = new ScrollAnimator(window, this.animator);
 }
 
 Columns.prototype.add = function add(component, id, scope) {
@@ -19,8 +22,14 @@ Columns.prototype.add = function add(component, id, scope) {
     } else if (id === "columns:iteration") {
         component.container = scope.components.container;
         component.container.style.left = component.index * 600 + "px";
+        component.scrollAnimator = new ScrollAnimator(component.container, this.animator);
+        component.destroy = destroyIteration;
     }
 };
+
+function destroyIteration() {
+    this.scrollAnimator.destroy();
+}
 
 Columns.prototype.navigate = function navigate(value, index) {
     index = index || 0;
@@ -41,6 +50,8 @@ Columns.prototype.activate = function activate(value, index) {
     var pos = this.columns.value.indexOf(value);
     if (pos < 0) {
         this.columns.value.swap(index + 1, this.columns.value.length - index - 1, [value]);
+        this.scrollAnimator.animateTo(600 * (1 + this.activeIndex), 0, 1000);
+        //window.scrollTo(600 * (1 + this.activeIndex), 0);
     }
 };
 
@@ -68,10 +79,6 @@ Columns.prototype.handleLeft = function handleLeft() {
     if (this.activeIndex > 0) {
         this.activeIndex--;
         this.activateIteration(this.columns.iterations[this.activeIndex]);
-        this.columns.value.swap(
-            this.activeIndex + 1,
-            this.columns.value.length - this.activeIndex
-        );
         window.scrollTo(600 * this.activeIndex, 0);
     }
 };
@@ -94,7 +101,7 @@ Columns.prototype.handleTop = function handleTop() {
 Columns.prototype.handleBottom = function handleBottom() {
     if (this.activeIteration) {
         var container = this.activeIteration.container;
-        container.scrollTop = container.innerHeight;
+        container.scrollTop = container.scrollHeight;
     }
 };
 
