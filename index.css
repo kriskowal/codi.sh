@@ -7,11 +7,26 @@ body {
     font-family: Book Antiqua, Palatino, Palatino Linotype, Palatino LT STD, Georgia, serif;
 }
 
+.columnsViewport {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+}
+
 .column {
     position: absolute;
     width: 600px;
+    height: 100%;
     padding: 20px;
     border-right: solid #777 4px;
+    overflow: auto;
+}
+
+.columnActive {
+    border-right: dotted #777 4px;
 }
 
 .options {
@@ -40,3 +55,4 @@ body {
 .optionActive {
     border-style: dotted;
 }
+

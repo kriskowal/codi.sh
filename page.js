@@ -37,6 +37,14 @@ Page.prototype.navigate = function navigate(document) {
     return this.navigator.navigate(value, this.navigationIndex);
 };
 
+Page.prototype.activate = function (document) {
+    var value = document.value;
+    return this.navigator.activate(value, this.navigationIndex);
+};
+
+Page.prototype.deactivate = function (document) {
+};
+
 Page.prototype.focus = function focus() {
     this.see.focus();
 };
