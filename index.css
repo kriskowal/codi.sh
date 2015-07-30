@@ -8,6 +8,48 @@ body {
     background-color: #f7f7f7;
 }
 
+.document {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 2.5em;
+    right: 0;
+    overflow: hidden;
+}
+
+.help {
+    position: absolute;
+    top: calc(100% - 2.5em);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f7f7f7;
+    overflow: hidden;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -ms-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+.helpOption {
+    background-color: #f7f7f7;
+    border: solid #555 2px;
+    border-radius: 10px;
+    -webkit-flex: 0 1 auto;
+    -moz-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    display: block;
+    line-height: 1.8em;
+    margin: 3px;
+    padding: 1px 10px;
+}
+
 .columnsViewport {
     position: absolute;
     left: 0;

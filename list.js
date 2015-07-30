@@ -70,7 +70,6 @@ List.prototype.activateIteration = function activateIteration(iteration) {
     }
     var optionLink = iteration.scope.components.optionLink;
     optionLink.classList.add("optionActive");
-    optionLink.scrollIntoView();
     this.activeIteration = iteration;
     this.navigator.activate(this.activeIteration.value);
 };
@@ -79,7 +78,6 @@ List.prototype.deactivateIteration = function deactivateIteration(iteration) {
     this.navigator.deactivate(iteration.value);
     var optionLink = iteration.scope.components.optionLink;
     optionLink.classList.remove("optionActive");
-    optionLink.scrollIntoView();
     this.activeIteration = null;
 };
 

@@ -26,6 +26,8 @@ see:
 #   href: ./adventure.yaml
 --- |
 
+# A Cohort of Packages
+
 Long ago, I set out with my friend, [Ryan Paul][], on a quest to create a text
 adventure for a new generation.
 Ryan used to run a MUD called *Magic of Middle-earth*, based on the [SMAUG][]
