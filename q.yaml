@@ -1,21 +1,23 @@
 slug: q
 see:
+- label: ASAP
+  href: ./asap.yaml
 # estimated time to completion
 # cancellation
-# asap
 --- |
 
-# Asynchronous Promises with Q
+# [Asynchronous Promises with Q][Q]
 
 If a function cannot return a value or throw an exception without
 blocking, it can return a promise instead.
 A promise is an object that represents the return value or the thrown exception
 that the function may eventually provide.
 
-[The Q Promise Library](https://github.com/kriskowal/q) is the ground-breaking
+[The Q Promise Library][Q] is the ground-breaking
 promise library for JavaScript, based on the work of [Mark Miller][] and [Tyler
 Close][] and built with substantial contributions from [Domenic Denicola][].
 
+[Q]: https://github.com/kriskowal/q
 [Mark Miller]: https://en.wikipedia.org/wiki/Mark_S._Miller
 [Tyler Close]: http://waterken.sourceforge.net/web_send/
 [Domenic Denicola]: https://blog.domenic.me/

@@ -6,7 +6,7 @@ see:
   href: ./operators.yaml
 --- |
 
-# Observers
+# [Observers][pop-observe]
 
 The [pop-observe][] package makes it possible to observe changes to arrays and
 other collections.

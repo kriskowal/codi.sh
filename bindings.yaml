@@ -6,7 +6,7 @@ see:
   href: ./system.yaml
 --- |
 
-# Bindings
+# [Bindings][FRB]
 
 Within the memory of one process running on an event loop, it is always
 possible to have a consistent model at the end of every event.
