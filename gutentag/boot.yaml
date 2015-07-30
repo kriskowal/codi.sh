@@ -52,7 +52,10 @@ It also would host all of your metadata and assets like icons and CSS themes.
     <head>
     </head>
     <body>
-        <script src="node_modules/system/boot.js" data-import="./index"></script>
+        <script
+            src="node_modules/system/boot.js"
+            data-import="./index">
+        </script>
     </body>
 </html>
 ```

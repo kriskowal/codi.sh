@@ -30,7 +30,7 @@ List.prototype.add = function add(component, id, scope) {
     } else if (id === "options:iteration") {
         scope.components.optionLink.addEventListener("click", this);
         scope.components.optionLink.setAttribute("href", "");
-        scope.components.optionLink.delegate = component;
+        scope.components.optionLink.component = component;
     }
 };
 
@@ -38,9 +38,9 @@ List.prototype.handleEvent = function handleEvent(event) {
     if (event.type === "click") {
         event.preventDefault();
         event.stopPropagation();
-        if (event.target.delegate) {
-            this.activateIteration(event.target.delegate);
-            return this.navigator.navigate(event.target.delegate.value);
+        if (event.target.component) {
+            this.activateIteration(event.target.component);
+            return this.navigator.navigate(event.target.component.value);
         }
     }
 };

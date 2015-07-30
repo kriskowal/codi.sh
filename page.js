@@ -8,7 +8,6 @@ module.exports = Page;
 function Page(body, scope) {
     this.navigator = null;
     this.navigationIndex = null;
-    this.history = scope.history;
     this.index = scope.index;
 }
 
@@ -32,14 +31,13 @@ Page.prototype.add = function (component, id, scope) {
 };
 
 Page.prototype.navigate = function navigate(document) {
-    var value = document.value;
-    this.history.change(value.head.slug);
-    return this.navigator.navigate(value, this.navigationIndex);
+    var slug = document.value.head.slug;
+    return this.navigator.navigate(slug, this.navigationIndex);
 };
 
 Page.prototype.activate = function (document) {
-    var value = document.value;
-    return this.navigator.activate(value, this.navigationIndex);
+    var slug = document.value.head.slug;
+    return this.navigator.activate(slug, this.navigationIndex);
 };
 
 Page.prototype.deactivate = function (document) {

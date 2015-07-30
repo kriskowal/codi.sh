@@ -1,8 +1,8 @@
 "use strict";
 
 var URL = require("url");
-var HistoryState = require("history-state");
 var Animator = require("blick");
+var History = require("./history");
 
 var Document = require("gutentag/document");
 var Scope = require("gutentag/scope");
@@ -12,31 +12,26 @@ var document = new Document(window.document.body);
 var scope = new Scope();
 scope.animator = new Animator();
 scope.attention = new Attention();
-scope.history = new HistoryState({hash: true});
+scope.history = new History(window);
 scope.main = new Main(document.documentElement, scope);
+scope.history.handler = scope.main;
 
-var index = {};
-function collect(document, index) {
+var documents = {};
+function collect(document, documents) {
     if (!document.head.slug) {
         return;
     }
-    if (index[document.head.slug]) {
+    if (documents[document.head.slug]) {
         return;
     }
-    index[document.head.slug] = document;
+    documents[document.head.slug] = document;
     document.head.see.forEach(function (link) {
-        collect(link.value, index);
+        collect(link.value, documents);
     });
 }
-collect(require("./index.yaml"), index);
+collect(require("./index.yaml"), documents);
 
-var hash = URL.parse(window.location.toString()).hash;
-hash = hash && hash.slice(1);
-if (hash && index[hash]) {
-    scope.main.value = index[hash];
-} else {
-    scope.main.value = require("./index.yaml");
-}
-
+scope.main.documents = documents;
+scope.history.update();
 scope.main.focus();
 

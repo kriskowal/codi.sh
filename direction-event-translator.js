@@ -44,7 +44,8 @@ DirectionEventTranslator.prototype.handleEvent = function (event) {
     var keyCode = event.keyCode || event.charCode;
     var handler = this.handler;
 
-    if (event.type === "keypress") {
+    if (event.metaKey || event.altKey || event.ctrlKey) {
+    } else if (event.type === "keypress") {
         if (this.keyMap[key] && handler[this.keyMap[key]]) {
             event.preventDefault(); event.stopPropagation();
             return handler[this.keyMap[key]](event);

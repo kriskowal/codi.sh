@@ -24,7 +24,7 @@ see:
 > hacker idiom, *Hello, World!*
 
 The missing piece of the web component story is declarative modularity.
-Web components presently have encapsulation through the shadow DOM, and a form
+Web components currently have encapsulation through the shadow DOM, and a form
 of modularity through script tags and register functions, but no inherent means
 for declarative dependency.
 

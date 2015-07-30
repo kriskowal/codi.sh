@@ -7,6 +7,7 @@ module.exports = Columns;
 
 function Columns(body, scope) {
     this.attention = scope.attention;
+    this.history = scope.history;
     this.columns = null;
     this.directionEventTranslator = new DirectionEventTranslator(this);
     this.activeIteration = null;
@@ -21,30 +22,65 @@ Columns.prototype.add = function add(component, id, scope) {
     if (id === "this") {
         this.columns = scope.components.columns;
         this.columns.value = [];
-        this.scrollAnimator = new ScrollAnimator(scope.components.columnsViewport, this.animator);
+        this.scrollAnimator = new ScrollAnimator(
+            scope.components.columnsViewport,
+            this.animator
+        );
     } else if (id === "columns:iteration") {
         component.container = scope.components.container;
         component.container.style.left = component.index * 600 + "px";
-        component.scrollAnimator = new ScrollAnimator(component.container, this.animator);
+        component.scrollAnimator = new ScrollAnimator(
+            component.container,
+            this.animator
+        );
+        component.parent = this;
+        component.container.addEventListener("click", component);
+        component.handleEvent = handleEventIteration;
         component.destroy = destroyIteration;
     }
 };
 
 function destroyIteration() {
+    this.container.removeEventListener("click", this);
     this.scrollAnimator.destroy();
+}
+
+function handleEventIteration(event) {
+    this.parent.activateIteration(this);
 }
 
 Columns.prototype.navigate = function navigate(value, index) {
     index = index || 0;
     var pos = this.columns.value.indexOf(value);
     if (pos < 0) {
-        this.columns.value.swap(index + 1, this.columns.value.length - index - 1, [value]);
-        this.activateIteration(this.columns.iterations[index + 1]);
-        this.activeIndex = index + 1;
+        this.columns.value.swap(index, this.columns.value.length - index, [value]);
+        this.activateIteration(this.columns.iterations[index]);
+        this.activeIndex = index;
     } else {
         this.columns.value.swap(pos + 1, this.columns.value.length - pos);
         this.activateIteration(this.columns.iterations[pos]);
         this.activeIndex = pos;
+    }
+    this.scrollAnimator.scrollTo(600 * this.activeIndex, 0, this.transitionDuration);
+    this.pushHistory();
+};
+
+Columns.prototype.pushHistory = function pushHistory() {
+    var path = "";
+    for (var index = 0; index <= this.activeIndex; index++) {
+        path += encodeURIComponent(this.columns.iterations[index].value || "");
+        if (index < this.activeIndex) {
+            path += "/";
+        }
+    }
+    this.history.push(path);
+};
+
+Columns.prototype.setPath = function setPath(path) {
+    var parts = path.split("/");
+    for (var index = 0; index < parts.length; index++) {
+        var part = decodeURIComponent(parts[index]);
+        this.navigate(part, index);
     }
 };
 
@@ -53,7 +89,7 @@ Columns.prototype.activate = function activate(value, index) {
     var pos = this.columns.value.indexOf(value);
     if (pos < 0) {
         this.columns.value.swap(index + 1, this.columns.value.length - index - 1, [value]);
-        this.scrollAnimator.scrollTo(600 * (1 + this.activeIndex), 0, this.transitionDuration);
+        this.scrollAnimator.scrollTo(600 * this.activeIndex, 0, this.transitionDuration);
     }
 };
 
@@ -83,6 +119,7 @@ Columns.prototype.handleLeft = function handleLeft() {
         this.activateIteration(this.columns.iterations[this.activeIndex]);
         this.scrollAnimator.scrollTo(600 * this.activeIndex, 0, this.transitionDuration);
     }
+    this.pushHistory();
 };
 
 Columns.prototype.handleRight = function handleRight() {
@@ -91,6 +128,7 @@ Columns.prototype.handleRight = function handleRight() {
         iteration.handleEnter();
         this.scrollAnimator.scrollTo(600 * this.activeIndex, 0, this.transitionDuration);
     }
+    this.pushHistory();
 };
 
 Columns.prototype.handleTop = function handleTop() {

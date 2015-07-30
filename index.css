@@ -5,6 +5,7 @@
 
 body {
     font-family: Book Antiqua, Palatino, Palatino Linotype, Palatino LT STD, Georgia, serif;
+    background-color: #f7f7f7;
 }
 
 .columnsViewport {
@@ -14,6 +15,13 @@ body {
     bottom: 0;
     right: 0;
     overflow: auto;
+}
+
+.columnsBacking {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    width: 5000px;
 }
 
 .column {
@@ -27,6 +35,7 @@ body {
 
 .columnActive {
     border-right: dotted #777 4px;
+    background-color: #fff;
 }
 
 .options {
