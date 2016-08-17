@@ -17,7 +17,7 @@ Main.prototype.setPath = function setPath(path) {
     this.pages.setPath(path);
 };
 
-Main.prototype.add = function (component, id, scope) {
+Main.prototype.hookup = function (id, component, scope) {
     if (id === "this") {
         this.pages = scope.components.pages;
     } else if (id === "pages:iteration") {

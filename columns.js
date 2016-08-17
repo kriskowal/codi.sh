@@ -18,7 +18,7 @@ function Columns(body, scope) {
 
 Columns.prototype.transitionDuration = 200;
 
-Columns.prototype.add = function add(component, id, scope) {
+Columns.prototype.hookup = function hookup(id, component, scope) {
     if (id === "this") {
         this.columns = scope.components.columns;
         this.columns.value = [];

@@ -20,7 +20,7 @@ Object.defineProperty(Page.prototype, "value", {
     }
 });
 
-Page.prototype.add = function (component, id, scope) {
+Page.prototype.hookup = function (id, component, scope) {
     if (id === "this") {
         this.see = scope.components.see;
         this.see.navigator = this;

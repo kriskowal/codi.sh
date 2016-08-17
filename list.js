@@ -23,7 +23,7 @@ Object.defineProperty(List.prototype, "options", {
     }
 });
 
-List.prototype.add = function add(component, id, scope) {
+List.prototype.hookup = function hookup(id, component, scope) {
     if (id === "this") {
         this.optionsComponent = scope.components.options;
         this.optionsElement = scope.components.optionsList;
